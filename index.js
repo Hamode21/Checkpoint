@@ -44,4 +44,16 @@ sql.connect(config).then(pool => {
         } catch (err) {
           res.status(500).send('Error adding point');
         }
-    
+    });
+      //  להוספת ביקור
+  app.post('/visits', async (req, res) => {
+    const { pointId } = req.body;
+    try {
+      await pool.request()
+        .input('pointId', sql.Int, pointId)
+        .query('INSERT INTO Visits (PointID) VALUES (@pointId)');
+      res.send('Visit recorded successfully');
+    } catch (err) {
+      res.status(500).send('Error recording visit');
+    }
+  });
