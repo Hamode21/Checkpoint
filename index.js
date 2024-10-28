@@ -1,18 +1,6 @@
-const http = require('http');
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const app = express();
 const PORT = 4325;
-
-const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello, !\n');
-});
-
-
-server.listen(PORT, function(error) {
-    if (error){
-        console.log ('error',error)
-    }
-    else{
-    console.log(`Server running at http://localhost:${PORT}/`);
-    }
-});
