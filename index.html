@@ -20,6 +20,15 @@
     <script>
         const apiUrl = 'http://localhost:4325';
 
+          // Fetch and display points
+          async function fetchPoints() {
+            const response = await fetch(`${apiUrl}/points`);
+            const points = await response.json();
+            const pointSelect = document.getElementById('pointSelect');
+            pointSelect.innerHTML = points.map(point => 
+                `<option value="${point.PointID}">${point.Name}</option>`).join('');
+        }
+
 
     
 </body>
