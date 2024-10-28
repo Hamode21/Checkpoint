@@ -19,4 +19,16 @@ const config = {
       trustServerCertificate: true
     }
   };
+  // התחברות למסד הנתונים
+sql.connect(config).then(pool => {
+    console.log('Connected to SQL Server');
   
+  // נתיב לקבלת כל הנקודות
+  app.get('/points', async (req, res) => {
+    try {
+      const result = await pool.request().query('SELECT * FROM Points');
+      res.json(result.recordset);
+    } catch (err) {
+      res.status(500).send('Error fetching points');
+    }
+  });
