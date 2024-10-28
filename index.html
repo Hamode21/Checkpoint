@@ -42,7 +42,18 @@
             fetchPoints();
         });
 
+              // קליטת ביקור
+              document.getElementById('recordVisitButton').addEventListener('click', async () => {
+            const pointId = document.getElementById('pointSelect').value;
+            await fetch(`${apiUrl}/visits`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ pointId })
+            });
+            alert('Visit recorded successfully');
+        });
 
-    
+        fetchPoints();
+    </script>
 </body>
 </html>
