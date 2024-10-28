@@ -57,3 +57,9 @@ sql.connect(config).then(pool => {
       res.status(500).send('Error recording visit');
     }
   });
+}).catch(err => {
+    console.error('Database connection failed:', err);
+  });
+  
+  const PORT = process.env.PORT || 4325;
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
