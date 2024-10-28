@@ -28,6 +28,19 @@
             pointSelect.innerHTML = points.map(point => 
                 `<option value="${point.PointID}">${point.Name}</option>`).join('');
         }
+              // הוספת נקודה
+              document.getElementById('addPointForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('pointName').value;
+            const description = document.getElementById('pointDescription').value;
+
+            await fetch(`${apiUrl}/points`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, description })
+            });
+            fetchPoints();
+        });
 
 
     
