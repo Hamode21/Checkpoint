@@ -23,7 +23,7 @@ const config = {
 sql.connect(config).then(pool => {
     console.log('Connected to SQL Server');
   
-  // נתיב לקבלת כל הנקודות
+  //  לקבלת כל הנקודות
   app.get('/points', async (req, res) => {
     try {
       const result = await pool.request().query('SELECT * FROM Points');
@@ -32,3 +32,16 @@ sql.connect(config).then(pool => {
       res.status(500).send('Error fetching points');
     }
   });
+    //  להוספת נקודה חדשה
+    app.post('/points', async (req, res) => {
+        const { name, description } = req.body;
+        try {
+          await pool.request()
+            .input('name', sql.NVarChar, name)
+            .input('description', sql.NVarChar, description)
+            .query('INSERT INTO Points (Name, Description) VALUES (@name, @description)');
+          res.send('Point added successfully');
+        } catch (err) {
+          res.status(500).send('Error adding point');
+        }
+    
